@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Label Date Editor</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="panel controls">
+        <h1>Label Date Editor</h1>
+        <p class="hint">This app is locked to your label image and only changes the expiration date text.</p>
+
+        <label class="field">
+          <span>Label Type</span>
+          <select id="labelType">
+            <option value="dosa">Dosa</option>
+            <option value="idli">Idli</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>New expiration date</span>
+          <input id="dateInput" type="text" placeholder="e.g. 2026-11-30" />
+        </label>
+
+        <p class="hint">Date position is locked for this label.</p>
+
+        <div class="actions">
+          <button id="downloadBtn" type="button">Download PNG</button>
+        </div>
+      </section>
+
+      <section class="panel preview">
+        <canvas id="canvas" width="900" height="600" aria-label="Label preview"></canvas>
+        <p id="status" class="status">Loading fixed label...</p>
+      </section>
+    </main>
+
+    <script src="loader.js"></script>
+  </body>
+</html>

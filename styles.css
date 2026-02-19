@@ -57,6 +57,24 @@ body {
   color: #334155;
 }
 
+.field-readonly {
+  margin-bottom: 14px;
+}
+
+.value-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  border: 1px solid #d7e0ea;
+  border-radius: 8px;
+  padding: 9px 12px;
+  background: #f8fafc;
+  color: #0f172a;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
 input,
 select,
 button {
@@ -90,6 +108,7 @@ button {
   padding: 9px 12px;
   cursor: pointer;
   background: #f8fafc;
+  flex-grow: 1;
 }
 
 button:hover {

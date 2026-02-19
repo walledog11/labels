@@ -1,9 +1,10 @@
-const dateInput = document.getElementById("dateInput");
 const downloadBtn = document.getElementById("downloadBtn");
 const statusEl = document.getElementById("status");
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 const labelType = document.getElementById("labelType");
+const currentDate = document.getElementById("currentDate")
+const expirationDateLength = document.getElementById("expirationDateLength")
 const LABEL_CONFIGS = {
 	dosa: {
 		file: "Dosa Batter Label.png",
@@ -45,6 +46,41 @@ const dateLayout = {};
 let selectedLabel = "dosa";
 let LABEL_FILE = LABEL_CONFIGS[selectedLabel].file;
 
+const todayDate = new Date()
+const todayDay = todayDate.getDate().toString().padStart(2, '0');
+const todayMonth = (todayDate.getMonth() + 1).toString().padStart(2, '0');
+const todayYear = todayDate.getFullYear()
+
+let weeksAdded = expirationDateLength?.value || "three";
+
+
+currentDate.textContent = `${todayMonth}/${todayDay}/${todayYear}`
+
+function addDays(todayDate, weeksAdded) {
+	let numberOfDays = 0
+	if (weeksAdded === "three"){
+		numberOfDays = 21
+	} else {
+		numberOfDays = 30
+	}
+	const newDate = new Date(todayDate); 
+	newDate.setDate(newDate.getDate() + numberOfDays); 
+
+	const newDay = newDate.getDate().toString().padStart(2, '0');
+	const newMonth = (newDate.getMonth() + 1).toString().padStart(2, '0');
+	const newYear = newDate.getFullYear()
+	return `${newMonth}/${newDay}/${newYear}`;
+}
+
+expirationDateLength.addEventListener("change", (e) => {
+	weeksAdded = e.target.value
+	renderExpirationDate()
+})
+
+function renderExpirationDate() {
+  const text = addDays(todayDate, weeksAdded || "three");
+  drawPreview(text);
+}
 function applyLabelConfig(labelKey) {
 	const config = LABEL_CONFIGS[labelKey] || LABEL_CONFIGS.dosa;
 	selectedLabel = labelKey in LABEL_CONFIGS ? labelKey : "dosa";
@@ -58,7 +94,7 @@ if (labelType) {
 	labelType.addEventListener("change", (event) => {
 		applyLabelConfig(event.target.value);
 		loadedImage = null;
-		drawPreview();
+		renderExpirationDate();
 		loadFixedImage();
 	});
 }
@@ -69,7 +105,7 @@ function updateStatus(message) {
 	statusEl.textContent = message;
 }
 
-function drawPreview() {
+function drawPreview(text) {
 	context.clearRect(0, 0, canvas.width, canvas.height);
 
 	if (!loadedImage) {
@@ -80,7 +116,6 @@ function drawPreview() {
 
 	context.drawImage(loadedImage, 0, 0, canvas.width, canvas.height);
 
-	const text = dateInput.value.trim();
 	if (!text) {
 		return;
 	}
@@ -129,7 +164,7 @@ function loadFixedImage() {
 	image.onload = () => {
 		loadedImage = image;
 		fitCanvasToImage(image);
-		drawPreview();
+		renderExpirationDate();
 		updateStatus("Ready. Enter a date and download.");
 	};
 
@@ -139,8 +174,6 @@ function loadFixedImage() {
 
 	image.src = encodeURI(LABEL_FILE);
 }
-
-dateInput.addEventListener("input", drawPreview);
 
 function downloadCanvasPng() {
 	if (!loadedImage) {
@@ -180,5 +213,5 @@ downloadBtn.addEventListener("click", () => {
 	downloadCanvasPng();
 });
 
-drawPreview();
+renderExpirationDate();
 loadFixedImage();

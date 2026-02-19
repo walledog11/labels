@@ -19,9 +19,17 @@
           </select>
         </label>
 
+        <label class="field field-readonly">
+          <span>Current Date</span>
+          <span id="currentDate" class="value-chip" aria-live="polite"></span>
+        </label>
+
         <label class="field">
-          <span>New expiration date</span>
-          <input id="dateInput" type="text" placeholder="e.g. 2026-11-30" />
+          <span>Expiration Date Length</span>
+          <select id="expirationDateLength">
+            <option value="three" selected>3 Weeks</option>
+            <option value="four">4 Weeks</option>
+          </select>
         </label>
 
         <div class="actions">

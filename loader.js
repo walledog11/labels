@@ -190,14 +190,14 @@ function downloadCanvasPng() {
 
 			const url = URL.createObjectURL(blob);
 			const link = document.createElement("a");
-			link.download = `updated-${selectedLabel}-label.png`;
+			link.download = `${selectedLabel}-label-${todayMonth}_${todayDay}_${todayYear}.png`;
 			link.href = url;
 			document.body.appendChild(link);
 			link.click();
 			link.remove();
 			URL.revokeObjectURL(url);
 
-			updateStatus(`Downloaded: updated-${selectedLabel}-label.png`);
+			updateStatus(`Downloaded: ${selectedLabel}-label.png`);
 		}, "image/png");
 	} catch (error) {
 		updateStatus("Download blocked by browser security. Open this app via localhost instead of file://.");

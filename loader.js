@@ -165,7 +165,7 @@ function loadFixedImage() {
 		loadedImage = image;
 		fitCanvasToImage(image);
 		renderExpirationDate();
-		updateStatus("Ready. Enter a date and download.");
+		updateStatus("Ready. Choose expiration length and download.");
 	};
 
 	image.onerror = () => {
@@ -205,11 +205,6 @@ function downloadCanvasPng() {
 }
 
 downloadBtn.addEventListener("click", () => {
-	if (!dateInput.value.trim()) {
-		updateStatus("Enter an expiration date first.");
-		return;
-	}
-
 	downloadCanvasPng();
 });
 

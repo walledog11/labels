@@ -1,4 +1,5 @@
 const downloadBtn = document.getElementById("downloadBtn");
+const downloadBoth = document.getElementById("downloadBothBtn")
 const statusEl = document.getElementById("status");
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
